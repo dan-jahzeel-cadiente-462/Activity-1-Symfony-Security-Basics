@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Access denied{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1>Access denied</h1>
+    <p>You don't have permission to view this page.</p>
+    {% if app.user is not null %}
+      <p>Signed in as: <strong>{{ app.user.email }}</strong></p>
+      <p><a href="{{ path('app_dashboard') }}">Go to dashboard</a></p>
+    {% else %}
+      <p><a href="{{ path('app_login') }}">Sign in</a> to access more pages.</p>
+    {% endif %}
+  </div>
+{% endblock %}
