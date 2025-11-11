@@ -9,19 +9,24 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: '$2y$10$fCNHar/l4/vwLtfSTOTUDOfRVC71LKeCLYC3IBsZHSvCmFFoubus.' # plain: 'adminpass'
+                        roles: ['ROLE_ADMIN', 'ROLE_USER']
+                    user:
+                        password: '$2y$10$O7/jNtPpsRfVfM/eeCiwZeKc3snCF2XQBabW32wrQVPGFL.I3lfvO' # plain: 'userpass'
+                        roles: 'ROLE_USER'
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: app_user_provider
-            form_login:
-                # "app_login" is the name of the route created in SecurityController.php
-                login_path: app_login
-                # where to redirect after success
-                default_target_path: /dashboard
-                check_path: app_login
+            provider: in_memory
+            http_basic: ~
             logout:
                 # "app_logout" is the name of the route created in SecurityController.php
                 path: app_logout

@@ -7,11 +7,17 @@
     <div class="row">
         <div class="col">
             <h1>
-                {% if user %}
-                    Hello {{ user.userIdentifier }}!
+                {% if app.user %}
+                    Hello {{ app.user.userIdentifier }}!
                 {% endif %}
             </h1>
-            <p>{{ message }}</p>
+            {% if is_granted('ROLE_ADMIN') %}
+                <p>You are logged in as Admin. You have full access.</p>
+            {% elseif is_granted('ROLE_USER') %}
+                <p>You are logged in as Regular User. Limited access granted.</p>
+            {% else %}
+                <p>Please log in to view dashboard content.</p>
+            {% endif %}
         </div>
     </div>
 </div>
